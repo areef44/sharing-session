@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {onMounted, ref} from 'vue';
+import L from 'leaflet'
 
 const lat = ref<number | null>(null);
 const long = ref<number | null>(null);
+const mapContainer = ref()
 
 const getLocation = async () => {
   if(navigator.geolocation) {
@@ -13,6 +15,14 @@ const getLocation = async () => {
     })
   }
 }
+
+onMounted(() => {
+  var map = L.map(mapContainer.value).setView([51.505, -0.09], 13);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+})
 </script>
 
 <template>
@@ -22,6 +32,8 @@ const getLocation = async () => {
     </button>
     <p>{{ lat }}</p>
     <p>{{ long }}</p>
+
+    <div ref="mapContainer" style="width: 800px; height: 600px;"></div>
   </div>
   
 </template>
