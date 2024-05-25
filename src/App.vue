@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue';
 import L from 'leaflet'
+import { polygonJSON } from './assets/polygonJSON';
 
 const lat = ref<number | null>(null);
 const long = ref<number | null>(null);
 const map = ref()
 const mapContainer = ref()
+
 
 const getLocation = async () => {
   if(navigator.geolocation) {
@@ -32,10 +34,12 @@ const getLocation = async () => {
 
 onMounted(() => {
   map.value = L.map(mapContainer.value).setView([-6.2390957, 106.7527616,], 13);
+  L.geoJSON(polygonJSON).addTo(map.value)
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map.value);
+  }).addTo(map.value);
+
 })
 </script>
 
@@ -55,3 +59,4 @@ onMounted(() => {
 <style scoped>
 
 </style>
+./assets/polygonJSON.js
