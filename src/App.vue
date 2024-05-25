@@ -31,7 +31,7 @@ const getLocation = async () => {
 }
 
 onMounted(() => {
-  map.value = L.map(mapContainer.value).setView([51.505, -0.09], 13);
+  map.value = L.map(mapContainer.value).setView([-6.2390957, 106.7527616,], 13);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
