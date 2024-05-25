@@ -1,17 +1,29 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import {ref} from 'vue';
+
+const lat = ref<number | null>(null);
+const long = ref<number | null>(null);
+
+const getLocation = async () => {
+  if(navigator.geolocation) {
+
+    navigator.geolocation.watchPosition((location) => {
+      lat.value = location.coords.latitude;
+      long.value = location.coords.longitude;
+    })
+  }
+}
 </script>
 
 <template>
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <button @click="getLocation">
+      Get Location
+    </button>
+    <p>{{ lat }}</p>
+    <p>{{ long }}</p>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  
 </template>
 
 <style scoped>
