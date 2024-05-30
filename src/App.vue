@@ -33,7 +33,7 @@ const getLocation = async () => {
 }
 
 onMounted(() => {
-  map.value = L.map(mapContainer.value).setView([-6.2390957, 106.7527616,], 13);
+  map.value = L.map(mapContainer.value).setView([-6.175372, 106.827194,], 13);
   L.geoJSON(polygonJSON).addTo(map.value)
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
